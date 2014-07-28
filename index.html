@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>Sticky Notes</title>
+    <link href="http://fonts.googleapis.com/css?family=Reenie+Beanie:regular" rel="stylesheet" type="text/css">
+    <link href="css/style.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+    <div ng-app="myApp">      
+        <script type="text/ng-template" id="partials/notebook">
+        <ul>
+            <li ng-repeat="note in notes">
+                <span>
+                    <my-note delete="deleteNote(note.id)" note="note">
+                        <img src="images/tack.png" class="tackImage" alt="tack" />
+                        <button class="btnClose" id="btnClose" ng-click="delete()">&#10006;</button>
+                        <p>{{note.title}}</p>
+                    </my-note>
+                </span>
+            </li>
+        </ul>
+        </script>
+
+        <div ng-controller="NotebookCtrl">
+            <div>
+                <div style="float:left; padding-right: 10px;">
+                    <button class="btnAdd" id="newNote" ng-click="showAddNote();">New Note</button>
+                </div>
+                <div id="newNotePanel" style="float:left; display:none;">
+                    <div>
+                        <form ng-submit="addNote(noteTitle);resetForm();">
+                            <input ng-model="noteTitle" size="16" type="text" placeholder="Add a note">
+                            <button class="btnAdd" type="button" ng-disabled="!noteTitle" ng-click="addNote(noteTitle);resetForm();">Add Note</button>
+                            <button class="btnCancel" type="button" ng-click="cancelNote();resetForm();">Cancel</button>
+                        </form>
+                    </div>
+                </div>
+                <div style="clear:both;"></div>
+            </div>
+            <my-notebook notes="getNotes()" ondelete="deleteNote(id)"></my-notebook>
+        </div>
+        
+    </div>
+    <script type="application/javascript" src="js/jquery.min.js"></script>
+    <script type="application/javascript" src="js/angular.min.js"></script>
+    <script type="application/javascript" src="js/script.js"></script>
+    
+</body>
+</html>
